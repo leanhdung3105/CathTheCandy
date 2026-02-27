@@ -3,5 +3,8 @@
   "uuid": "cbc45665-e3a7-4539-864e-e4525ae67ac1",
   "creator": {
     "version": "3.8.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0"
   }
 }
