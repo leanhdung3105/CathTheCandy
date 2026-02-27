@@ -1,0 +1,47 @@
+
+#///////////////////////////
+# Cocos Creator 3D Project
+#///////////////////////////
+library/
+temp/
+local/
+build/
+profiles/
+native
+#//////////////////////////
+# NPM
+#//////////////////////////
+node_modules/
+
+#//////////////////////////
+# VSCode
+#//////////////////////////
+.vscode/
+
+#//////////////////////////
+# WebStorm
+#//////////////////////////
+.idea/
+# Thư mục chứa tài nguyên đã được xử lý (Cocos tự sinh)
+library/
+temp/
+local/
+profiles/
+
+# Thư mục chứa kết quả khi bạn bấm "Build"
+build/
+
+# Các file log và hệ thống
+*.log
+.DS_Store
+Thumbs.db
+
+# Thư mục node_modules (nếu bạn dùng npm/yarn)
+node_modules/
+
+# Thư mục cấu hình riêng của IDE (VS Code, JetBrains)
+.vscode/
+.idea/
+
+# File định nghĩa kiểu tự sinh (nếu có)
+creator.d.ts
