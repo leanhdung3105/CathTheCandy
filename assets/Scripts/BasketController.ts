@@ -1,10 +1,14 @@
-import { _decorator, Component, input, Input, EventKeyboard, KeyCode, EventTouch, view, UITransform, Collider2D, Contact2DType, IPhysics2DContact } from 'cc';
+import { _decorator, Component, input, Input, EventKeyboard, KeyCode, EventTouch, view, UITransform, Collider2D, Contact2DType, IPhysics2DContact, Label } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('BasketController')
 export class BasketController extends Component {
     @property
     public speed: number = 600; // Tốc độ 
+
+    @property({ type: Label })
+    public scoreLabel: Label | null = null; //Truyền chữ điểm vào
+    private score: number = 0; // Biến lưu điểm ngầm 
 
     private moveDirection: number = 0; // -1 trái, 1 phải, 0 đứng yên
     private screenHalfWidth: number = 0; // 1/2 chiều rộng
@@ -79,7 +83,12 @@ export class BasketController extends Component {
         setTimeout(() => {
             if (otherCollider.node) {
                 otherCollider.node.destroy();
-                //console.log("Đã ăn 1 viên kẹo!");
+
+                this.score += 1; //+1
+
+                if (this.scoreLabel) {
+                    this.scoreLabel.string = "Score: " + this.score;
+                }
             }
         }, 0);
         

@@ -4,7 +4,7 @@ const { ccclass, property } = _decorator;
 @ccclass('Candy')
 export class Candy extends Component {
     @property
-    public speed: number = 300; // Tốc độ rơi
+    public speed: number = 10; // Tốc độ rơi
 
     start() {
         // thiết lập vận tốc rơi xuống
