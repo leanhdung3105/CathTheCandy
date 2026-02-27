@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode, screen, EventTouch } from 'cc';
+import { _decorator, Component, input, Input, EventKeyboard, KeyCode, EventTouch, view, UITransform, Collider2D, Contact2DType, IPhysics2DContact } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('BasketController')
@@ -17,7 +17,13 @@ export class BasketController extends Component {
         //CẢM ỨNG
         input.on(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
 
-        this.screenHalfWidth = screen.windowSize.width / 2;
+        this.screenHalfWidth = view.getVisibleSize().width / 2;
+
+        // Đăng ký Cảm biến Va chạm
+        let collider = this.getComponent(Collider2D);
+        if (collider) {
+            collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+        }
     }
 
     onDestroy() {
@@ -66,5 +72,16 @@ export class BasketController extends Component {
 
             this.node.setPosition(newX, currentPos.y, currentPos.z);
         }
+    }
+
+    // --- XỬ LÝ VA CHẠM ---
+    onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
+        setTimeout(() => {
+            if (otherCollider.node) {
+                otherCollider.node.destroy();
+                //console.log("Đã ăn 1 viên kẹo!");
+            }
+        }, 0);
+        
     }
 }
