@@ -1,4 +1,4 @@
-import { _decorator, Component, input, Input, EventKeyboard, KeyCode, EventTouch, view, UITransform, Collider2D, Contact2DType, IPhysics2DContact, Label } from 'cc';
+import { _decorator, Component, input, Input, EventKeyboard, KeyCode, EventTouch, view, UITransform, Collider2D, Contact2DType, IPhysics2DContact, Label, AudioSource } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('BasketController')
@@ -9,6 +9,9 @@ export class BasketController extends Component {
     @property({ type: Label })
     public scoreLabel: Label | null = null; //Truyền chữ điểm vào
     private score: number = 0; // Biến lưu điểm ngầm 
+
+    @property({ type: AudioSource })
+    public catchSound: AudioSource | null = null; // Biến chứa âm thanh ăn kẹo
 
     private moveDirection: number = 0; // -1 trái, 1 phải, 0 đứng yên
     private screenHalfWidth: number = 0; // 1/2 chiều rộng
@@ -88,6 +91,10 @@ export class BasketController extends Component {
 
                 if (this.scoreLabel) {
                     this.scoreLabel.string = "Score: " + this.score;
+                }
+
+                if (this.catchSound) {
+                    this.catchSound.play();
                 }
             }
         }, 0);
