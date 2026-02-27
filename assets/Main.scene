@@ -262,7 +262,7 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 1.2,
+      "x": 1,
       "y": 1,
       "z": 1
     },
@@ -288,7 +288,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1080,
+      "width": 1280,
       "height": 720
     },
     "_anchorPoint": {
