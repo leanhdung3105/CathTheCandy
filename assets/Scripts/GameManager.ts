@@ -22,7 +22,7 @@ export class GameManager extends Component {
     public replayButton: Node | null = null; // Ổ cắm Nút Chơi lại
 
     @property({ type: Node })
-    public scoreNode: Node | null = null; // Ổ cắm chữ Điểm (để lôi ra giữa)
+    public scoreNode: Node | null = null; 
 
     public spawnInterval: number = 1; // 1 giây đẻ 1 viên
     private spawnTimer: number = 0;
@@ -36,7 +36,7 @@ export class GameManager extends Component {
         this.screenHalfWidth = view.getVisibleSize().width / 2;
 
         // Setup ban đầu
-        if (this.livesLabel) this.livesLabel.string = "♥️:" + this.lives;
+        if (this.livesLabel) this.livesLabel.string = "HP: " + this.lives;
         if (this.gameOverLabel) this.gameOverLabel.active = false;
     }
 
@@ -57,6 +57,8 @@ export class GameManager extends Component {
         // Tạo kẹo mới từ Khuôn 
         let newCandy = instantiate(this.candyPrefab);
         this.node.addChild(newCandy);
+
+        newCandy.setSiblingIndex(2);
 
         // Rơi vị trí ngẫu nhiên
         let randomX = math.randomRange(-this.screenHalfWidth + 50, this.screenHalfWidth - 50);
@@ -82,28 +84,25 @@ export class GameManager extends Component {
 
         this.lives--; // Trừ mạng
         if (this.livesLabel) {
-            this.livesLabel.string = "♥️:" + this.lives; // Cập nhật chữ lên màn hình
+            this.livesLabel.string = "HP: " + this.lives; // Cập nhật chữ lên màn hình
         }
 
-        if (this.lives <= 0) {
+        if (this.lives <= 0) { // hiện GAME OVER
             this.isGameOver = true; 
-            if (this.gameOverLabel) this.gameOverLabel.active = true; // Bật chữ Game Over
+            if (this.gameOverLabel) this.gameOverLabel.active = true;
 
-            if (this.replayButton) this.replayButton.active = true; // Hiện nút Chơi Lại
-            if (this.scoreNode) this.scoreNode.active = true; // Hiện chữ Điểm
-            // Ẩn chữ Mạng đi cho đỡ rối
+            if (this.replayButton) this.replayButton.active = true; 
+            if (this.scoreNode) this.scoreNode.active = true; 
             if (this.livesLabel) this.livesLabel.node.active = false;
 
-            // FIX: Tắt hệ thống Vật lý (kẹo khựng lại trên không, nhưng NÚT VẪN BẤM ĐƯỢC)
             PhysicsSystem2D.instance.enable = false;
         }
     }
 
     public onReplayClicked() {
-        // Bật lại Vật lý cho ván mới (nếu không bật thì ván sau kẹo lơ lửng không rơi)
         PhysicsSystem2D.instance.enable = true; 
         
-        // Load lại Scene từ đầu (Tự động reset điểm, mạng và UI về chỗ cũ)
+        // Load lại Scene
         director.loadScene("Main");
     }
 }
